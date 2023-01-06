@@ -1,0 +1,33 @@
+<html xmlns="https://www.thymeleaf.org">
+	<head>
+		<title>List Of Employees</title>
+	</head>
+	<body>
+		<div>
+			<h2>Employee List</h2>
+			<hr/>
+			<table border="1">
+				<thead>
+					<tr>
+						<th>sno</th>
+						<th>EmployeeId</th>
+						<th>FirstName</th>
+						<th>LastName</th>
+						<th>Salary</th>
+						<th>SalaryHike</th> 
+					</tr>
+				</thead>
+				<tbody>	
+					<tr th:each="employee: ${employees}">
+						<td th:text="${employee.sno}"></td>
+						<td th:text="${employee.employeeid}"></td>
+						<td th:text="${employee.firstname}"></td>
+						<td th:text="${employee.lastname}"></td>
+						<td th:text="${employee.salary}"></td>
+						<td th:text="${employee.salarhike}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</body>
+</html>
