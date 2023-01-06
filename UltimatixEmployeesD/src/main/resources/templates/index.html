@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/cosmo/bootstrap.min.css" />
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div>
+        <h2>Spring Boot Crud System -Employee Registation</h2>
+        <tr>
+            <div class="left">
+                <h3><a th:href="@{'/new'}">Add new</a></h3>
+            </div>
+        </tr>
+        <tr>
+            <div class="col-sm-5 center">
+                <div class="panel-body center">
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>S NO</th>
+                                <th>Employee Id</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Salary</th>
+                                <th>Salary Hike</th>
+                                <th>edit</th>
+                                <th>delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="employee : ${employees}">
+                                <td th:text="${employee.sno}">SNO</td>
+                                <td th:text="${employee.employeeid}">Employee Id</td>
+                                <td th:text="${employee.firstname}">First Name</td>
+                                <td th:text="${employee.lastname}">Last Name</td>
+                                <td th:text="${employee.salary}">Salary</td>
+                                <td th:text="${employee.salarhike}">Salary Hike</td>
+                                <td>
+                                    <a th:href="@{'/edit/' + ${employee.sno}}">Edit</a>
+                                </td>
+                                <td>
+                                    <a th:href="@{'/delete/' + ${employee.sno}}">Delete</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </tr>
+        </tbody>
+        </table>
+        <div>
+</body>
+
+</html>

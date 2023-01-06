@@ -19,14 +19,15 @@ public class UEmployeeE {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long sno;
-	private long employeeid;
+	private Long sno;
+	private Long employeeid;
 	private String firstname;
 	private String lastname;
 	private int salary;
 	private int salarhike;
-	
-	
-	
-	
+	@Override
+	public String toString() {
+	return "Employee [sno=" + sno + ", empid=" + employeeid + ", firstname=" + firstname + ", lastname=" + lastname + ", salary"+ salary + ", salaryhike" + salarhike+"]";
+	}
 }
+
