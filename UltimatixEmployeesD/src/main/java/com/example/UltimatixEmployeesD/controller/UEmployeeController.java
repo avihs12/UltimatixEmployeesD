@@ -21,30 +21,34 @@ public class UEmployeeController {
 	@Autowired
 	private EmployeeService service;
 
+	@GetMapping("/")
+	public String viewUltimatixPage () {
+		return "ultimatix";
+	}		
 
-	@GetMapping({"/showEmployees","/","list"})
+	@GetMapping({"/showEmployees","/list"})
 	public String viewHomepage (Model model) {
 		List<UEmployeeE>list = service.listAll();
 		model.addAttribute("employees", list);
-		return "index";
+		return "home";
 	}		
-
-	@GetMapping({"/new"})
+	
+	@GetMapping("/addemp")
 	public String add(Model model) {
 		model.addAttribute("employees", new UEmployeeE());
-		return "new";
+		return "addemp";
 	}	
 
 	@RequestMapping(value = "/save",method = RequestMethod.POST)
 	public String saveStudent(@ModelAttribute("employees") UEmployeeE emp) {
 		service.save(emp);
-		return "redirect:/";
+		return "redirect:/showEmployees";
 	}
 	
 
 	@RequestMapping("/edit/{sno}")
 	public ModelAndView showEdityEmployepage(@PathVariable("sno") Long sno){
-		ModelAndView mav = new ModelAndView("new");
+		ModelAndView mav = new ModelAndView("addemp");
 		UEmployeeE emp = service.get(sno);
 		mav.addObject("employees", emp);
 		System.out.println(emp);
@@ -54,7 +58,7 @@ public class UEmployeeController {
 	@RequestMapping("/delete/{sno}")
 	public String deletestudent(@PathVariable("sno") Long sno){
 		service.delete(sno);
-		return "redirect:/";
+		return "redirect:/showEmployees";
 	}
 
 }

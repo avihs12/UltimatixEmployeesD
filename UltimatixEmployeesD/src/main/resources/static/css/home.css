@@ -1,0 +1,26 @@
+thead {
+    vertical-align: bottom;
+    background: blue!important;
+    color: white;
+}
+.data {
+    margin-left: 20%;
+}
+
+.data {
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+.button{
+    width: 300px;
+}
+.text1{
+    text-transform: uppercase;
+}
+.add {
+    margin-left: 80px;
+}
+.text{
+    margin-right: 113px;
+}
