@@ -9,17 +9,33 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/css/home.css}">
+    <style type="text/css">
+        a { text-decoration: none; }
+        a:hover { text-decoration: underline; }  
+     </style>
 </head>
 
 <body>
-    <div class="text-center"><h1 class="text1"> WESTERN UNION EMPLOYEES LIST </h1></div>
-            <div class="add" style="margin-left: 50px;">
-                <h3><a th:href="@{'/addemp'}"><button type="button" class="btn btn-primary add mt-3">ADD EMPLOYEE</button></a></h3>
-            </div>
-    
+    <div class="text-center">
+        <h1 class="text1"> WESTERN UNION EMPLOYEES LIST </h1>
+    </div>
+    <div class="d-flex">
+        <div class="add" style="margin-left: 50px;">
+            <h3><a th:href="@{'/addemp'}"><button type="button" class="btn btn-primary add mt-3">
+                <img id="addicon" style="margin-right: 6px; margin-bottom: 2px;" th:src="@{/images/empaddpic.png}">ADD
+                        EMPLOYEE</button></a></h3>
+        </div>
+        <div class="search">
+            <form class="form-inline d-flex" th:action="@{/searchusers}" method="get"
+                style="margin-left: 660px; margin-top:15px" ;>
+                <input class="form-control  mr-sm-2" id="searchInput" type="text" name="keyword" th:value="${keyword}"
+                    placeholder="Search" size="20">
+                <button class="btn btn-outline-success  ms-2" id="searchbarbutton" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
     <div class="container">
         <div class="row">
-           
             <div class="col-12">
                 <table class="table table-bordered mt-1 ms-2 me-2">
                     <thead class="thead-dark text-center">
@@ -41,21 +57,60 @@
                             <td scope="col=2" th:text="${employee.firstname}">First Name</td>
                             <td scope="col=2" th:text="${employee.lastname}">Last Name</td>
                             <td scope="col=2" th:text="${employee.salary}">Salary</td>
-                            <td scope="col=1" th:text="${employee.salarhike}">Salary Hike</td>
-                            <td scope="col=1"><a th:href="@{'/edit/' + ${employee.sno}}"><button type="button" class="btn btn-primary"> EDIT </button></a></td>
-                            <td scope="col=1"><a th:href="@{'/delete/' + ${employee.sno}}"><button type="button" class="btn btn-danger">Delete</button></a></td>
+                            <td scope="col=1" th:text="${employee.salaryhike}">Salary Hike</td>
+                            <td scope="col=1"><a th:href="@{'/edit/' + ${employee.sno}}"><button type="button"
+                                        class="btn btn-primary"> EDIT </button></a></td>
+                            <!-- <td scope="col=1"><a th:href="@{'/delete/' + ${employee.sno}}"><button type="button"
+                                            class="btn btn-danger"> Delete </button></a></td> -->
+                            <td scope="col=1">
+                                <form  id="deletesubmit" th:action="@{'/delete/' + ${employee.sno}}">
+                                    <button type="button" id="delete" onclick="deleterecord(event)"
+                                        class="btn btn-danger">Delete</button>
+                                </form>
+                                <!-- <a th:="@{'/delete/' + ${employee.sno}}"></a></td> -->
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-    <footer class="text-end mt-3 text">
-    <div>
-         <p class="text-muted "><a class="gottoultimatixpage" th:href="@{'/'}">Got to Ultimatix page</a></p>
+    <div class="pages d-flex justify-content-between">
+        <div>
+            <nav aria-label="Page navigation example" th:if="${page}">
+
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link" th:href="@{'/getPaginatedUsers/' + ${page-1}+ '/6'}">Previous</a></li>
+                    <li class="page-item"><a class="page-link" th:href="@{'/getPaginatedUsers/' + ${page+1}+ '/6'}">Next</a></li>
+                </ul>
+            </nav>
+            <nav aria-label="Page navigation example" th:unless="${page}">
+
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link" th:href="@{'/getPaginatedUsers/0/6'}">Previous</a></li>
+                    <li class="page-item"><a class="page-link" th:href="@{'/getPaginatedUsers/1/6'}">Next</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="link" style="margin-right:108px;margin-top: 10px;">
+            <footer class="text-end">
+                <p class="text-muted "><a class="gottoultimatixpage" th:href="@{'/'}">Got to Ultimatix page</a></p>
+            </footer>
+        </div>
     </div>
-    </footer>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-        <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.13.1/datatables.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.13.1/datatables.min.js"></script>
+    <script>
+        function deleterecord(event) {
+            debugger;
+            if (confirm("Press a button!") != true) {
+                event.preventDefault();
+            }
+            else{
+                document.getElementById("deletesubmit").submit();
+            }
+        }
+    </script>
 </body>
+
 </html>
