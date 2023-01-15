@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import com.example.UltimatixEmployeesD.entity.UEmployeeE;
@@ -30,7 +29,6 @@ public class EmployeeService{
 	}
 	public void  delete(Long sno){
 		 Ulrepo.deleteById(sno);
-	
 	}
 	public List<UEmployeeE> search(String firstname){
 		return Ulrepo.findByFirstnameContaining(firstname);
@@ -39,8 +37,6 @@ public class EmployeeService{
         Pageable paging = PageRequest.of(page, size);
         return Ulrepo.findAll(paging).toList();
 	}
-	//////////////////////////////////////
-
 // 	public UEmployeeE saveEmployee(UEmployeeE emp) {
 //         return Ulrepo.save(emp);
 //     }
@@ -61,10 +57,10 @@ public class EmployeeService{
 //         return Ulrepo.findByFirstnameContaining(firstname);
 //     }
 
-    public String apiDeleteEmp(Long sno) {
-        Ulrepo.deleteById(sno);
-        return "Employee removed !! " + sno;
-	}
+    // public String apiDeleteEmp(Long sno) {
+    //     Ulrepo.deleteById(sno);
+    //     return "Employee removed !! " + sno;
+	// }
 }
 
 //     public UEmployeeE updateEmployee(UEmployeeE emp) {
@@ -74,17 +70,5 @@ public class EmployeeService{
 //         existEmployee.setPrice(Ulrepo.getPrice());
 //         return Ulrepo.save(existEmployee);
 //     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 // }

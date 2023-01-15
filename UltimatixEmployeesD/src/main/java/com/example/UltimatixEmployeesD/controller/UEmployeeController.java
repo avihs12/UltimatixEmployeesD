@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,34 +31,28 @@ public class UEmployeeController {
 		if (keyword != null) {
 			List<UEmployeeE> list = service.search(keyword);
 			model.addAttribute("employees", list);
-			System.out.println(list);
 		} else {
 			List<UEmployeeE> list1 = service.listAll();
 			model.addAttribute("employees", list1);
 		}
 		return "home";
-
-	}
-
+	}	
 	@GetMapping("/addemp")
 	public String add(Model model) {
 		model.addAttribute("employees", new UEmployeeE());
 		return "addemp";
 	}
-
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String saveEmp(@ModelAttribute("employees") UEmployeeE emp) {
 		System.out.print(emp);
 		service.save(emp);
 		return "redirect:/showEmployees";
 	}
-
 	@RequestMapping(value = "/cancel", method = RequestMethod.POST)
 	public String cancelEmp(@ModelAttribute("employees") UEmployeeE emp) {
 		service.listAll();
 		return "redirect:/showEmployees";
 	}
-
 	@RequestMapping("/edit/{sno}")
 	public ModelAndView showEdityEmployepage(@PathVariable("sno") Long sno) {
 		ModelAndView mav = new ModelAndView("addemp");
@@ -68,13 +61,11 @@ public class UEmployeeController {
 		System.out.println(emp);
 		return mav;
 	}
-
 	@RequestMapping("/delete/{sno}")
 	public String deletestudent(@PathVariable("sno") Long sno) {
 		service.delete(sno);
 		return "redirect:/showEmployees";
 	}
-
 	@RequestMapping({ "/getPaginatedUsers/{page}/{size}" })
 	public String paginatedUser(@PathVariable("page") int page, @PathVariable("size") int size, Model model) {
 		List<UEmployeeE> list1 = service.employeesPagination(page, size);
@@ -82,7 +73,6 @@ public class UEmployeeController {
 		model.addAttribute("page", page);
 		return "home";
 	}
-
 	// @GetMapping("/page/{pageno}")
 	// public String findPaginated(@PathVariable int pageno, Model m) {
 	// 	Page<UEmployeeE> emplist = service.getEMpByPaginate(pageno, 2);
