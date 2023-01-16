@@ -26,8 +26,8 @@ public class UEmployeeController {
 		return "ultimatix";
 	}
 
-	@RequestMapping({ "/searchusers", "/showEmployees" })
-	public String searchUsers(Model model, String keyword) {
+	@RequestMapping({ "/searchEmployee", "/showEmployees" , "/returnToHome"})
+	public String searcEmployee(Model model, String keyword) {
 		if (keyword != null) {
 			List<UEmployeeE> list = service.search(keyword);
 			model.addAttribute("employees", list);
@@ -37,82 +37,37 @@ public class UEmployeeController {
 		}
 		return "home";
 	}	
-	@GetMapping("/addemp")
-	public String add(Model model) {
+	@GetMapping("/addEmployee")
+	public String addEmployee(Model model) {
 		model.addAttribute("employees", new UEmployeeE());
 		return "addemp";
 	}
-	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String saveEmp(@ModelAttribute("employees") UEmployeeE emp) {
+	@RequestMapping(value = "/saveEmployee", method = RequestMethod.POST)
+	public String saveEmployee(@ModelAttribute("employees") UEmployeeE emp) {
 		System.out.print(emp);
 		service.save(emp);
 		return "redirect:/showEmployees";
 	}
-	@RequestMapping(value = "/cancel", method = RequestMethod.POST)
-	public String cancelEmp(@ModelAttribute("employees") UEmployeeE emp) {
-		service.listAll();
-		return "redirect:/showEmployees";
-	}
-	@RequestMapping("/edit/{sno}")
-	public ModelAndView showEdityEmployepage(@PathVariable("sno") Long sno) {
+
+	@RequestMapping("/editEmployee/{sno}")
+	public ModelAndView showEditEmployepage(@PathVariable("sno") Long sno) {
 		ModelAndView mav = new ModelAndView("addemp");
 		UEmployeeE emp = service.get(sno);
 		mav.addObject("employees", emp);
 		System.out.println(emp);
 		return mav;
 	}
-	@RequestMapping("/delete/{sno}")
-	public String deletestudent(@PathVariable("sno") Long sno) {
+	@RequestMapping("/deleteEmployee/{sno}")
+
+	public String deleteEmployee(@PathVariable("sno") Long sno) {
 		service.delete(sno);
 		return "redirect:/showEmployees";
 	}
-	@RequestMapping({ "/getPaginatedUsers/{page}/{size}" })
-	public String paginatedUser(@PathVariable("page") int page, @PathVariable("size") int size, Model model) {
+	@RequestMapping({ "/EmployeesByPages/{page}/{size}" })
+	public String paginatedEmployees(@PathVariable("page") int page, @PathVariable("size") int size, Model model) {
 		List<UEmployeeE> list1 = service.employeesPagination(page, size);
 		model.addAttribute("employees", list1);
 		model.addAttribute("page", page);
 		return "home";
 	}
-	// @GetMapping("/page/{pageno}")
-	// public String findPaginated(@PathVariable int pageno, Model m) {
-	// 	Page<UEmployeeE> emplist = service.getEMpByPaginate(pageno, 2);
-	// 	m.addAttribute("employees", emplist);
-	// 	m.addAttribute("currentPage", pageno);
-	// 	m.addAttribute("totalPages", emplist.getTotalPages());
-	// 	m.addAttribute("totalItem", emplist.getTotalElements());
-	// 	return "home";
-	// }
-
-
-	// @GetMapping("/search")
-    // public String search(String keyword, Model model) {
-    //     return searchByPage(keyword, model, 1);
-    // }
-
-	// @GetMapping("/search/page/{pageNum}")	
-    // public String searchByPage(String keyword, Model model,
-    //                     @PathVariable(name = "pageNum") int pageNum) {
-             
-    //     Page<UEmployeeE> result = service.search(keyword, pageNum);
-         
-    //     List<UEmployeeE> listResult = result.getContent();
-         
-    //     model.addAttribute("totalPages", result.getTotalPages());
-    //     model.addAttribute("totalItems", result.getTotalElements());
-    //     model.addAttribute("currentPage", pageNum);
-         
-    //     long startCount = (pageNum - 1) * service.SEARCH_RESULT_PER_PAGE + 1;
-    //     model.addAttribute("startCount", startCount);
-         
-    //     long endCount = startCount + service.SEARCH_RESULT_PER_PAGE - 1;
-    //     if (endCount > result.getTotalElements()) {
-    //         endCount = result.getTotalElements();
-    //     }
-         
-    //     model.addAttribute("endCount", endCount);      
-    //     model.addAttribute("listResult", listResult);
-    //     model.addAttribute("keyword", keyword);    
-         
-    //     return "search_result";    
-    // }
 }

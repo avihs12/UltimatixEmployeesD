@@ -22,7 +22,7 @@
 <body>
     <div class="col-8 mt-5 container col-sm-5">
         <div class="card">
-            <form action="#" id="addemployee" th:action="@{/save}" th:object="${employees}" method="post"
+            <form action="#" id="addemployee" th:action="@{/saveEmployee}" th:object="${employees}" method="post"
                 onsubmit="return validateForm()">
                 <h1 class="text-center">Create New Employee</h1>
                 <div class="row mb-4">
@@ -70,10 +70,10 @@
                 </div>
                 <br>
                 <div class="d-flex">
-                    <div class="savebutton"><button th:href="@{'/showEmployees'}" type="submit"
+                    <div class="savebutton"><button th:href="@{'/saveEmployee'}" type="submit"
                             class="btn btn-primary  buttonsave  mb-2" id="savebutton" style="width:100%">SAVE</button>
                     </div>
-                    <div class="cancelbutton"><button th:href="@{'/cancel'}" id="cancelbutton" type="submit"
+                    <div class="cancelbutton"><button th:href="@{'/returnToHome'}" id="cancelbutton" type="submit"
                             class="btn btn-danger  buttoncancel  mb-2" style="width:100%">CANCEL</button></div>
                 </div>
             </form>

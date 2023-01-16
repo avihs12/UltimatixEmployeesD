@@ -21,12 +21,12 @@
     </div>
     <div class="d-flex">
         <div class="add" style="margin-left: 50px;">
-            <h3><a th:href="@{'/addemp'}"><button type="button" class="btn btn-primary add mt-3">
+            <h3><a th:href="@{'/addEmployee'}"><button type="button" class="btn btn-primary add mt-3">
                 <img id="addicon" style="margin-right: 6px; margin-bottom: 2px;" th:src="@{/images/empaddpic.png}">ADD
                         EMPLOYEE</button></a></h3>
         </div>
         <div class="search">
-            <form class="form-inline d-flex" th:action="@{/searchusers}" method="get"
+            <form class="form-inline d-flex" th:action="@{/searchEmployee}" method="get"
                 style="margin-left: 660px; margin-top:15px" ;>
                 <input class="form-control  mr-sm-2" id="searchInput" type="text" name="keyword" th:value="${keyword}"
                     placeholder="Search" size="20">
@@ -58,12 +58,12 @@
                             <td scope="col=2" th:text="${employee.lastname}">Last Name</td>
                             <td scope="col=2" th:text="${employee.salary}">Salary</td>
                             <td scope="col=1" th:text="${employee.salaryhike}">Salary Hike</td>
-                            <td scope="col=1"><a th:href="@{'/edit/' + ${employee.sno}}"><button type="button"
+                            <td scope="col=1"><a th:href="@{'/editEmployee/' + ${employee.sno}}"><button type="button"
                                         class="btn btn-primary"> EDIT </button></a></td>
                             <!-- <td scope="col=1"><a th:href="@{'/delete/' + ${employee.sno}}"><button type="button"
                                             class="btn btn-danger"> Delete </button></a></td> -->
                             <td scope="col=1">
-                                <form  id="deletesubmit" th:action="@{'/delete/' + ${employee.sno}}">
+                                <form  id="deletesubmit" th:action="@{'/deleteEmployee/' + ${employee.sno}}">
                                     <button type="button" id="delete" onclick="deleterecord(event)"
                                         class="btn btn-danger">Delete</button>
                                 </form>
@@ -79,15 +79,15 @@
             <nav aria-label="Page navigation example" th:if="${page}">
 
                 <ul class="pagination">
-                    <li class="page-item"><a class="page-link" th:href="@{'/getPaginatedUsers/' + ${page-1}+ '/6'}">Previous</a></li>
-                    <li class="page-item"><a class="page-link" th:href="@{'/getPaginatedUsers/' + ${page+1}+ '/6'}">Next</a></li>
+                    <li class="page-item"><a class="page-link" th:href="@{'/EmployeesByPages/' + ${page-1}+ '/6'}">Previous</a></li>
+                    <li class="page-item"><a class="page-link" th:href="@{'/EmployeesByPages/' + ${page+1}+ '/6'}">Next</a></li>
                 </ul>
             </nav>
             <nav aria-label="Page navigation example" th:unless="${page}">
 
                 <ul class="pagination">
-                    <li class="page-item"><a class="page-link" th:href="@{'/getPaginatedUsers/0/6'}">Previous</a></li>
-                    <li class="page-item"><a class="page-link" th:href="@{'/getPaginatedUsers/1/6'}">Next</a></li>
+                    <li class="page-item"><a class="page-link" th:href="@{'/EmployeesByPages/0/6'}">Previous</a></li>
+                    <li class="page-item"><a class="page-link" th:href="@{'/EmployeesByPages/1/6'}">Next</a></li>
                 </ul>
             </nav>
         </div>

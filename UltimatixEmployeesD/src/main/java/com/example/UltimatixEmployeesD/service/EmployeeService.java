@@ -37,38 +37,4 @@ public class EmployeeService{
         Pageable paging = PageRequest.of(page, size);
         return Ulrepo.findAll(paging).toList();
 	}
-// 	public UEmployeeE saveEmployee(UEmployeeE emp) {
-//         return Ulrepo.save(emp);
-//     }
-
-//     public List<UEmployeeE> saveEmployees(List<UEmployeeE> emp) {
-//         return Ulrepo.saveAll(emp);
-//     }
-
-//     public List<UEmployeeE> get() {
-//         return Ulrepo.findAll();
-//     }
-
-//     public UEmployeeE getEmployeeById(Long id) {
-//         return Ulrepo.findById(id).orElse(null);
-//     }
-
-//     public UEmployeeE getEmplouyeeByName(String firstname) {
-//         return Ulrepo.findByFirstnameContaining(firstname);
-//     }
-
-    // public String apiDeleteEmp(Long sno) {
-    //     Ulrepo.deleteById(sno);
-    //     return "Employee removed !! " + sno;
-	// }
 }
-
-//     public UEmployeeE updateEmployee(UEmployeeE emp) {
-//         UEmployeeE existEmployee = Ulrepo.findById(emp.getId()).orElse(null);
-//         existEmployee.setName(Ulrepo.getName());
-//         existEmployee.setQuantity(Ulrepo.getQuantity());
-//         existEmployee.setPrice(Ulrepo.getPrice());
-//         return Ulrepo.save(existEmployee);
-//     }
-
-// }
