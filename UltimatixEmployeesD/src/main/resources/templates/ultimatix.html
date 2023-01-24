@@ -49,7 +49,7 @@
                                 th:src="@{/images/worklist.png}" class="worklist_sym"></a></li>
                     <li class="px-4"><a class="nav-right-link" href="#"> <img th:src="@{/images/profile.png}"
                                 class="profile_sym"></a></li>
-                    <li class="px-4"><a class="nav-right-link" href="#"><img th:src="@{/images/signoff.png}"
+                    <li class="px-4"><a class="nav-right-link" th:href="@{/logout}"><img  th:src="@{/images/signoff.png}"
                                 class="signoff_sym"></a></li>
                 </ul>
             </div>
@@ -61,7 +61,7 @@
                 <div class="liBackground">
                     <ul class="list-group ml-0 ">
                         <li class="list-group-item ms-0 me-0">
-                            <a href="#">
+                            <a id="a" href="#">
                                 <div class="menu_tour d-flex">
                                     <img class="navigation" th:src="@{/images/navigation.png}">
                                     <span class="text_menu_tour">Menu Tour</span>
@@ -69,7 +69,7 @@
                             </a>
                         </li>
                         <li class="list-group-item ms-0 me-0">
-                            <a href="#">
+                            <a id="a" href="#">
                                 <div class="md-form mt-3 mb-2 w-77">
                                     <input class="form-control" type="text" placeholder="Search Application"
                                         aria-label="Search">
@@ -80,39 +80,39 @@
                                 </div>
                             </a>
                         </li>
-                        <li class="list-group-item ms-0 me-0"><a href="#">Requests</a></li>
-                        <li class="list-group-item ms-0 me-0"><a href="#">Details</a></li>
-                        <li class="list-group-item ms-0 me-0"><a href="#">Earnings</a></li>
-                        <li class="list-group-item ms-0 me-0"><a href="#">Help, Concerns &
+                        <li class="list-group-item ms-0 me-0"><a id="a" href="#">Requests</a></li>
+                        <li class="list-group-item ms-0 me-0"><a id="a" href="#">Details</a></li>
+                        <li class="list-group-item ms-0 me-0"><a id="a" href="#">Earnings</a></li>
+                        <li class="list-group-item ms-0 me-0"><a id="a" href="#">Help, Concerns &
                                 Feedback</a></li>
-                        <li class="list-group-item ms-0 me-0"><a href="#">Learning &
+                        <li class="list-group-item ms-0 me-0"><a id="a" href="#">Learning &
                                 Collaboration</a></li>
-                        <li class="list-group-item ms-0 me-0"><a href="#">
+                        <li class="list-group-item ms-0 me-0"><a id="a" href="#">
                                 <div class="para d-flex mt-3 mx-1 mb-1 ">
                                     <p style="font-size: 18px; font-weight: 600;">Applications</p>
                                     <p class="para11 ms-3">View all</p>
                                 </div>
                             </a></li>
-                        <li class="list-group-item ms-0 me-0"><a href="#">Employee
+                        <li class="list-group-item ms-0 me-0"><a id="a" href="#">Employee
                                 Services</a></li>
-                        <li class="list-group-item ms-0 me-0"><a href="#"><a href="#">Delivery
+                        <li class="list-group-item ms-0 me-0"><a id="a" href="#"><a href="#">Delivery
                                     & Intellectual Property</a></a>
                         </li>
-                        <li class="list-group-item ms-0 me-0"><a href="#">Executive Services,
+                        <li class="list-group-item ms-0 me-0"><a id="a" href="#">Executive Services,
                                 Governance & Reporting</a></li>
-                        <li class="list-group-item ms-0 me-0"><a href="#">Finance &
+                        <li class="list-group-item ms-0 me-0"><a id="a"  href="#">Finance &
                                 Infrastructure</a></li>
-                        <li class="list-group-item ms-0 me-0"><a href="#">Human Resources &
+                        <li class="list-group-item ms-0 me-0"><a id="a"  href="#">Human Resources &
                                 Diversity</a></li>
-                        <li class="list-group-item ms-0 me-0"><a href="#">Learning and
+                        <li class="list-group-item ms-0 me-0"><a id="a" href="#">Learning and
                                 Collabartions</a></li>
-                        <li class="list-group-item ms-0 me-0"><a href="#">Sales &
+                        <li class="list-group-item ms-0 me-0"><a id="a" href="#">Sales &
                                 Marketing</a></li>
-                        <li class="list-group-item ms-0 me-0"><a href="#">Security, Risks &
+                        <li class="list-group-item ms-0 me-0"><a id="a" href="#">Security, Risks &
                                 Compliance</a></li>
-                        <li class="list-group-item ms-0 me-0"><a href="#">Talent
+                        <li class="list-group-item ms-0 me-0"><a id="a" href="#">Talent
                                 Management</a></li>
-                        <li class="list-group-item ms-0 me-0"><a href="#">Utilities &
+                        <li class="list-group-item ms-0 me-0"><a id="a" href="#">Utilities &
                                 Enterprise Information</a></li>
                     </ul>
                 </div>
@@ -127,7 +127,7 @@
             <div class="card xl-mt-2 xl-ms-4 xl-me-3 ms-1 me-1" style="height:fit-content">
                 <div class="card-body">
                     Product/Services marked with can only be accessed on TCS network.
-                    Please<a id="click" href="#">click
+                    Please<a id="a"  href="#">click
                         here</a>here for mor details.
                 </div>
             </div>
@@ -142,10 +142,10 @@
                             <div class="underline1"></div>
                             <div class="fav-texts px-2">
                                 <li class="fav-texts mb-3 ">
-                                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                                    <a  class="nav-link active" aria-current="page" href="#">Home</a>
                                 </li>
                                 <li class="fav-texts mb-3 ">
-                                    <a class="nav-link" href="#">Building on belief</a>
+                                    <a  class="nav-link" href="#">Building on belief</a>
                                 </li>
                                 <li class="fav-texts mb-3 ">
                                     <a class="nav-link" href="#">CEO Connect</a>
@@ -167,6 +167,9 @@
                                 <li class="fav-texts mb-3 ">
                                     <a class="nav-link active" aria-current="page" href="#">Global
                                         ESS</a>
+                                </li>
+                                <li class="fav-texts mb-3 ">
+                                    <a class="nav-link" th:href="@{adminPage}">Admin Portal</a>
                                 </li>
                                 <li class="fav-texts mb-3 ">
                                     <a class="nav-link" href="#">Timesheet Entry</a>

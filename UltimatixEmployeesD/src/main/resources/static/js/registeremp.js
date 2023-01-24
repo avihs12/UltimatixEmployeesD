@@ -1,4 +1,3 @@
-var userid = document.getElementById("userid");
 var firstname = document.getElementById("firstname");
 var lastname = document.getElementById("lastname");
 var employeeid = document.getElementById("employeeid");
@@ -12,21 +11,21 @@ var error2 = document.getElementById("error2");
 var error3 = document.getElementById("error3");
 var error4 = document.getElementById("error4");
 var error5 = document.getElementById("error5");
-var error3 = document.getElementById("error6");
+var error6 = document.getElementById("error6");
+var error7 = document.getElementById("error7");
 
-var savebutton = document.getElementById("savebutton");
-var cancelbutton = document.getElementById("cancelbutton");
-var searchbarSearch = document.getElementById("searchInput");
-var searchbarReset = document.getElementById("seachbarreset");
+var register = document.getElementById("register");
 
+
+debugger;
 function myfunction() {
   debugger;
   let error = false;
   if (!firstname.value && firstname.value.trim() === "") {
     debugger;
-    error1.innerHTML = "invalid firstname"
-    firstname.value.trim();
     firstname.style.border = "2px solid red";
+    lastname.value.trim();
+    error1.innerHTML = "invalid firstname"
     error = true
   }
   if (!lastname.value && lastname.value.trim() === "") {
@@ -37,35 +36,46 @@ function myfunction() {
   }
 
   if (!employeeid.value && employeeid.value.trim() === "") {
-    error3.innerHTML = "lenght mistmatched"
+    error5.innerHTML = "lenght mistmatched"
     employeeid.style.border = "2px solid red";
     error = true
   }
 
+
   if (!salary.value && salary.value.trim() === "") {
-    error5.innerHTML = "lenght mistmatched"
+    error3.innerHTML = "lenght mistmatched"
     salary.style.border = "2px solid red";
     error = true
   }
 
   if (!salaryhike.value && salaryhike.value.trim() === "") {
-    error6.innerHTML = "lenght mistmatched"
+    error4.innerHTML = "lenght mistmatched"
     salaryhike.style.border = "2px solid red";
     error = true
   }
 
-  if (!error) {
-    document.getElementById("addemployee").submit();
+  if (!username.value && username.value.trim() === "") {
+    error6.innerHTML = "lenght mistmatched"
+    username.style.border = "2px solid red";
+    error = true
   }
+
+  if (!password.value && password.value.trim() === "") {
+    error7.innerHTML = "lenght mistmatched"
+    password.style.border = "2px solid red";
+    error = true
+  }
+
+  if (!error) {
+    document.getElementById("addemployeeregiser").submit();
+  }
+
 }
 
-savebutton.addEventListener("click", function (e) {
+register.addEventListener("click", function (e) {
   e.preventDefault();
   debugger;
-  myfunction();
-});
-cancelbutton.addEventListener("click", function (e) {
-  e.preventDefault();
+
   myfunction();
 });
 
@@ -94,13 +104,7 @@ employeeid.addEventListener("keyup", function (e) {
   }
 });
 
-password.addEventListener("keyup", function (e) {
-  e.preventDefault();
-  if (password.value) {
-    password.value.trim();
-    password.style.border = "2px solid green";
-  }
-});
+
 
 salary.addEventListener("keyup", function (e) {
   e.preventDefault();
@@ -117,3 +121,22 @@ salaryhike.addEventListener("keyup", function (e) {
     salaryhike.style.border = "2px solid green";
   }
 });
+
+password.addEventListener("keyup", function (e) {
+  e.preventDefault();
+  if (password.value) {
+    password.value.trim();
+    password.style.border = "2px solid green";
+  }
+});
+
+username.addEventListener("keyup", function (e) {
+  e.preventDefault();
+  if (username.value) {
+    username.value.trim();
+    username.style.border = "2px solid green";
+  }
+});
+
+
+

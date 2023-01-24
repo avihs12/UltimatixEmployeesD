@@ -2,6 +2,7 @@ package com.example.UltimatixEmployeesD.controller;
 
 import java.util.List;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,63 +12,156 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import com.example.UltimatixEmployeesD.entity.UEmployeeE;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import com.example.UltimatixEmployeesD.entity.User;
 import com.example.UltimatixEmployeesD.service.EmployeeService;
-
+import org.springframework.security.core.Authentication;
+import org.slf4j.Logger;
 
 @Controller
-@RequestMapping("/")
 public class UEmployeeController {
 	@Autowired
 	private EmployeeService service;
 
-	@RequestMapping
-	public String viewUltimatixPage() {
-		return "ultimatix";
-	}
+	Logger logger = LoggerFactory.getLogger(UEmployeeController.class);
+	public String currentUser()
+    {
+        Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 
-	@RequestMapping({ "/searchEmployee", "/showEmployees" , "/returnToHome"})
-	public String searcEmployee(Model model, String keyword) {
-		if (keyword != null) {
-			List<UEmployeeE> list = service.search(keyword);
-			model.addAttribute("employees", list);
-		} else {
-			List<UEmployeeE> list1 = service.listAll();
+        return loggedInUser.getName();
+    }
+
+	@GetMapping("/")
+    public String viewUltimatixPage(){
+		logger.info("ULTIMATIX HOME Page Accessed");
+        return "ultimatix";
+    }
+
+	@GetMapping("/login")
+    public String ViewAdminPage1() {
+		logger.info("LOGGGED IN----- CUSTOMLOGIN Page-  Accessed");
+        return "login";
+    }
+
+	@RequestMapping({"/adminPage","/searchEmployeeAdmin"})
+	public String showAdminPage(Model model, String keyword) {
+		if(keyword!=null){
+			List<User> list1 = service.searchEmployee(keyword);
+			logger.info("ADMIN Page Accessed AND SEARCHED USER ACCESSED");
 			model.addAttribute("employees", list1);
 		}
-		return "home";
-	}	
+		else{
+			List<User> list1 = service.listAllEmployees();
+			model.addAttribute("employees", list1);
+			logger.info(" LIST OF EMPLOYEES TABLE Accessed");
+			model.addAttribute("error", "error message");
+		}	
+		return "Adminpage"; 
+	}
+	
+	@GetMapping("/register")
+	public String addEmployeeEx(Model model) {
+		model.addAttribute("employees", new User());
+		logger.info("REGISTER  Page Accessed");
+		return "register";
+	}
+
+	@RequestMapping(value ="/register/save", method = RequestMethod.POST)
+	public String saveEmployee(@ModelAttribute("employees") User user) {
+		try{
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			String rawPassword = user.getPassword();
+			String encodedPassword = encoder.encode(rawPassword);
+			user.setPassword(encodedPassword);
+			service.saveEmployee(user);
+			logger.info("USER SUCCESSFULLY REGISTERED");
+		}
+		catch(Exception e){
+			System.out.print(e);
+			logger.info("USER NOT SUCCESSFULLY REGISTERED");
+		}
+		return "redirect:/login";
+    }
+
+	@RequestMapping(value = "/edited/save", method = RequestMethod.POST)
+	public String saveUpdatedEmployee(@ModelAttribute("employees") User serviceE) {
+		User emp = service.getEmployee(serviceE.getUserid());
+		System.out.println(serviceE.getRoles());
+		emp.setEmployeeid(serviceE.getEmployeeid());
+		emp.setFirstname(serviceE.getFirstname());
+		emp.setLastname(serviceE.getLastname());
+		emp.setSalary(serviceE.getSalary());
+		emp.setSalaryhike(serviceE.getSalaryhike());
+		emp.setRoles(serviceE.getRoles());
+		service.updateEmployee(emp);
+		logger.info("SAVED USER EDITED DETAILS FOR ADMIN");
+		return "redirect:/adminPage";
+    }
+
+	@RequestMapping("/editEmployee/{userid}")
+	public ModelAndView showEditEmployepage(@PathVariable("userid") Integer userid, User serviceE) {
+		try{
+			ModelAndView mav = new ModelAndView("addemp");
+			User emp = service.getEmployee(userid);
+			mav.addObject("employees", emp);	
+			logger.info("EDIT Page Accessed FOR ADMIN");
+			return mav;
+		}
+		catch(Exception e){
+			System.out.print(e);
+			ModelAndView mav = new ModelAndView("addemp");
+			mav.addObject("error", e);	
+			logger.info("NOT USER NOT EXIST");
+			return mav;
+		}
+	}
+
 	@GetMapping("/addEmployee")
 	public String addEmployee(Model model) {
-		model.addAttribute("employees", new UEmployeeE());
+		model.addAttribute("employees", new User());
+		logger.info("ADD PAGE Page Accessed");
 		return "addemp";
 	}
-	@RequestMapping(value = "/saveEmployee", method = RequestMethod.POST)
-	public String saveEmployee(@ModelAttribute("employees") UEmployeeE emp) {
-		System.out.print(emp);
-		service.save(emp);
-		return "redirect:/showEmployees";
+
+	@RequestMapping({"/showEmployees" ,"/searchEmployee" ,"/returnToHome"})
+	public String showEmployee(Model model, String keyword) {
+		if(keyword!=null){
+			List<User> list = service.searchEmployee(keyword);
+			model.addAttribute("employees", list);
+			logger.trace("SHOWED LIST OF EMPLOYEES");
+		}
+		else{
+			List<User> list1 = service.listAllEmployees();
+			model.addAttribute("employees", list1);
+			model.addAttribute("User",currentUser());
+			model.addAttribute("error", "error message");
+		}	
+		return "home"; 
 	}
 
-	@RequestMapping("/editEmployee/{sno}")
-	public ModelAndView showEditEmployepage(@PathVariable("sno") Long sno) {
-		ModelAndView mav = new ModelAndView("addemp");
-		UEmployeeE emp = service.get(sno);
-		mav.addObject("employees", emp);
-		System.out.println(emp);
-		return mav;
+    
+	@GetMapping("/deleteEmployee/{userid}")
+	public String deleteEmployee(@PathVariable("userid") Integer userid) {
+		service.deleteEmployee(userid);
+		logger.info("USER DELETED SUCCESSFULLY");
+		return "redirect:/adminPage";
 	}
-	@RequestMapping("/deleteEmployee/{sno}")
-
-	public String deleteEmployee(@PathVariable("sno") Long sno) {
-		service.delete(sno);
-		return "redirect:/showEmployees";
-	}
+	
 	@RequestMapping({ "/EmployeesByPages/{page}/{size}" })
 	public String paginatedEmployees(@PathVariable("page") int page, @PathVariable("size") int size, Model model) {
-		List<UEmployeeE> list1 = service.employeesPagination(page, size);
+		List<User> list1 = service.employeesPagination(page,size);
 		model.addAttribute("employees", list1);
 		model.addAttribute("page", page);
 		return "home";
 	}
+
+	@RequestMapping({"/EmployeesByPagesAdmin/{page}/{size}" })
+	public String paginatedEmployeesAdmin(@PathVariable("page") int page, @PathVariable("size") int size, Model model) {
+		List<User> list1 = service.employeesPagination(page,size);
+		model.addAttribute("employees", list1);
+		model.addAttribute("page", page);
+		return "adminPage";
+	}
+
 }

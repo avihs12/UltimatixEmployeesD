@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>home page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/ultimatix.css}">
+</head>
+
+<body>
+    <div th:fragment="side-con">
+        <div class="col-3 d-none d-sm-block">
+            <div class="list" style="width:296px; height:auto">
+                <div class="liBackground">
+                    <ul class="list-group ml-0 ">
+                        <li class="list-group-item ms-0 me-0">
+                            <a href="#">
+                                <div class="menu_tour d-flex">
+                                    <img class="navigation" th:src="@{/images/navigation.png}">
+                                    <span class="text_menu_tour">Menu Tour</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="list-group-item ms-0 me-0">
+                            <a href="#">
+                                <div class="md-form mt-3 mb-2 w-77">
+                                    <input class="form-control" type="text" placeholder="Search Application"
+                                        aria-label="Search">
+                                    <div class="para d-flex mt-3 mx-3 ">
+                                        <p style="font-size: 18px; font-weight: 600;">My Services</p>
+                                        <p class="para1 ms-3">View all</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="list-group-item ms-0 me-0"><a href="#">Requests</a></li>
+                        <li class="list-group-item ms-0 me-0"><a href="#">Details</a></li>
+                        <li class="list-group-item ms-0 me-0"><a href="#">Earnings</a></li>
+                        <li class="list-group-item ms-0 me-0"><a href="#">Help, Concerns &
+                                Feedback</a></li>
+                        <li class="list-group-item ms-0 me-0"><a href="#">Learning &
+                                Collaboration</a></li>
+                        <li class="list-group-item ms-0 me-0"><a href="#">
+                                <div class="para d-flex mt-3 mx-1 mb-1 ">
+                                    <p style="font-size: 18px; font-weight: 600;">Applications</p>
+                                    <p class="para11 ms-3">View all</p>
+                                </div>
+                            </a></li>
+                        <li class="list-group-item ms-0 me-0"><a href="#">Employee
+                                Services</a></li>
+                        <li class="list-group-item ms-0 me-0"><a href="#"><a href="#">Delivery
+                                    & Intellectual Property</a></a>
+                        </li>
+                        <li class="list-group-item ms-0 me-0"><a href="#">Executive Services,
+                                Governance & Reporting</a></li>
+                        <li class="list-group-item ms-0 me-0"><a href="#">Finance &
+                                Infrastructure</a></li>
+                        <li class="list-group-item ms-0 me-0"><a href="#">Human Resources &
+                                Diversity</a></li>
+                        <li class="list-group-item ms-0 me-0"><a href="#">Learning and
+                                Collabartions</a></li>
+                        <li class="list-group-item ms-0 me-0"><a href="#">Sales &
+                                Marketing</a></li>
+                        <li class="list-group-item ms-0 me-0"><a href="#">Security, Risks &
+                                Compliance</a></li>
+                        <li class="list-group-item ms-0 me-0"><a href="#">Talent
+                                Management</a></li>
+                        <li class="list-group-item ms-0 me-0"><a href="#">Utilities &
+                                Enterprise Information</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

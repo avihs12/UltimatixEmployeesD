@@ -1,15 +1,17 @@
-package com.example.UltimatixEmployeesD.repository;
+// package com.example.UltimatixEmployeesD.repository;
 
-import java.util.List;
+// import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+// import org.springframework.data.jpa.repository.JpaRepository;
+// import org.springframework.data.jpa.repository.Query;
+// import org.springframework.data.repository.query.Param;
+// import org.springframework.stereotype.Repository;
 
-import com.example.UltimatixEmployeesD.entity.UEmployeeE;
+// import com.example.UltimatixEmployeesD.entity.Role;
 
-@Repository
-public interface UEmployeeR extends JpaRepository<UEmployeeE, Long> {  
-List<UEmployeeE> findByFirstnameContaining(String firstname);
-}
+// public interface UEmployeeR extends JpaRepository<Role, Integer> { 
+//     @Query("SELECT u FROM user_roles u WHERE u.role_id = :role_id")
+//     public Role getUserByUserId(@Param("role_id") Integer ); 
+// }
 
 

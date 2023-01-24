@@ -21,7 +21,7 @@ body {
 }
 
 body {
-    background-color: #FFF5EE !important;
+    background-color: #FFFFFF !important;
 }
 
 .button {
@@ -29,7 +29,7 @@ body {
     width: 100%;
 }
 
-.savebutton {
+.savebtn {
     margin-left: 30px;
     width: 40%;
 }
@@ -99,7 +99,7 @@ body {
     margin-left: 25px;
 }
 body{
-    background: black!important;
+    background: rgb(241, 240, 240)!important;
 }
 
 a { text-decoration: none; }
