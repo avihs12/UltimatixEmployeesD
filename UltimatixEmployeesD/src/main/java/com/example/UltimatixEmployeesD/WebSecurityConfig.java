@@ -39,15 +39,16 @@ public class WebSecurityConfig {
 
 
         http
+        
 
         .csrf()
         .disable()
         .authorizeHttpRequests()
-        .requestMatchers("/","/searchEmployee","/searchEmployeeAdmin").hasAnyAuthority("USER","ADMIN","CREATOR")
-        .requestMatchers("/showEmployees").hasAnyAuthority("USER","ADMIN","CREATOR")
-        .requestMatchers("/adminPage","/addEmployee","/searchEmployee").hasAnyAuthority( "CREATOR","ADMIN")
-        .requestMatchers("/edited/save").hasAnyAuthority( "ADMIN")
-        .requestMatchers("/showEmployees").hasAnyAuthority( "USER")
+        .requestMatchers("/","showEmployees").hasAnyAuthority("USER","ADMIN","CREATOR","EDITOR")
+        .requestMatchers("/adminPage","/employee/Add","/useradded/save","/editEmployee/","/edited/save").hasAnyAuthority( "ADMIN","CREATOR","EDITOR")
+        .requestMatchers("/deleteEmployee/").hasAnyAuthority("ADMIN")
+        .requestMatchers("/user/EmployeeSearch","/searchEmployee","/admin/EmployeeSearch").hasAnyAuthority( "CREATOR","ADMIN","EDITOR","USER")
+        .requestMatchers("/EmployeesByPages/","/EmployeesByPagesAdmin/").hasAnyAuthority( "USER","EDITOR","CREATOR","ADMIN")
         .requestMatchers("/search").permitAll()
         .requestMatchers("/images/**").permitAll()
         .requestMatchers("/js/**").permitAll()

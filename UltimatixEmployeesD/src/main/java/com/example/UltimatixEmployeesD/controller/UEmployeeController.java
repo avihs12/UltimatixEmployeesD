@@ -44,21 +44,7 @@ public class UEmployeeController {
         return "login";
     }
 
-	@RequestMapping({"/adminPage","/searchEmployeeAdmin"})
-	public String showAdminPage(Model model, String keyword) {
-		if(keyword!=null){
-			List<User> list1 = service.searchEmployee(keyword);
-			logger.info("ADMIN Page Accessed AND SEARCHED USER ACCESSED");
-			model.addAttribute("employees", list1);
-		}
-		else{
-			List<User> list1 = service.listAllEmployees();
-			model.addAttribute("employees", list1);
-			logger.info(" LIST OF EMPLOYEES TABLE Accessed");
-			model.addAttribute("error", "error message");
-		}	
-		return "Adminpage"; 
-	}
+
 	
 	@GetMapping("/register")
 	public String addEmployeeEx(Model model) {
@@ -84,47 +70,34 @@ public class UEmployeeController {
 		return "redirect:/login";
     }
 
-	@RequestMapping(value = "/edited/save", method = RequestMethod.POST)
-	public String saveUpdatedEmployee(@ModelAttribute("employees") User serviceE) {
-		User emp = service.getEmployee(serviceE.getUserid());
-		System.out.println(serviceE.getRoles());
-		emp.setEmployeeid(serviceE.getEmployeeid());
-		emp.setFirstname(serviceE.getFirstname());
-		emp.setLastname(serviceE.getLastname());
-		emp.setSalary(serviceE.getSalary());
-		emp.setSalaryhike(serviceE.getSalaryhike());
-		emp.setRoles(serviceE.getRoles());
-		service.updateEmployee(emp);
-		logger.info("SAVED USER EDITED DETAILS FOR ADMIN");
-		return "redirect:/adminPage";
-    }
 
-	@RequestMapping("/editEmployee/{userid}")
-	public ModelAndView showEditEmployepage(@PathVariable("userid") Integer userid, User serviceE) {
-		try{
-			ModelAndView mav = new ModelAndView("addemp");
-			User emp = service.getEmployee(userid);
-			mav.addObject("employees", emp);	
-			logger.info("EDIT Page Accessed FOR ADMIN");
-			return mav;
-		}
-		catch(Exception e){
-			System.out.print(e);
-			ModelAndView mav = new ModelAndView("addemp");
-			mav.addObject("error", e);	
-			logger.info("NOT USER NOT EXIST");
-			return mav;
-		}
-	}
-
-	@GetMapping("/addEmployee")
+	
+	@GetMapping("/employee/Add")
 	public String addEmployee(Model model) {
-		model.addAttribute("employees", new User());
+		User employee = new User();
+        model.addAttribute("employees",employee);
+		System.out.print(employee);
 		logger.info("ADD PAGE Page Accessed");
 		return "addemp";
 	}
 
-	@RequestMapping({"/showEmployees" ,"/searchEmployee" ,"/returnToHome"})
+	@RequestMapping({"/adminPage","/admin/EmployeeSearch"})
+	public String showAdminPage(Model model, String keyword) {
+		if(keyword!=null){
+			List<User> list1 = service.searchEmployee(keyword);
+			logger.info("ADMIN Page Accessed AND SEARCHED USER ACCESSED");
+			model.addAttribute("employees", list1);
+		}
+		else{
+			List<User> list1 = service.listAllEmployees();
+			model.addAttribute("employees", list1);
+			logger.info(" LIST OF EMPLOYEES TABLE Accessed");
+			model.addAttribute("error", "error message");
+		}	
+		return "Adminpage"; 
+	}
+
+	@RequestMapping({"/showEmployees" ,"/user/EmployeeSearch"})
 	public String showEmployee(Model model, String keyword) {
 		if(keyword!=null){
 			List<User> list = service.searchEmployee(keyword);
@@ -140,10 +113,57 @@ public class UEmployeeController {
 		return "home"; 
 	}
 
-    
-	@GetMapping("/deleteEmployee/{userid}")
-	public String deleteEmployee(@PathVariable("userid") Integer userid) {
-		service.deleteEmployee(userid);
+
+	@RequestMapping(value = "/useradded/save", method = RequestMethod.POST)
+	public String saveEmp(@ModelAttribute("employees") User emp) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String rawPassword = emp.getPassword();
+		String encodedPassword = encoder.encode(rawPassword);
+		emp.setPassword(encodedPassword);
+		System.out.print(emp);
+		service.saveEmployee(emp);
+		return "redirect:/adminPage";
+	}
+
+	@RequestMapping("/editEmployee/{id}")
+	public ModelAndView showEditEmployepage(@PathVariable("id") Integer id, User serviceE) {
+		try{
+			ModelAndView mav = new ModelAndView("addemp");
+			User emp = service.getEmployee(id);
+			mav.addObject("employees", emp);	
+			logger.info("EDIT Page Accessed FOR ADMIN");
+			return mav;
+		}
+		catch(Exception e){
+			System.out.print(e);
+			ModelAndView mav = new ModelAndView("addemp");
+			mav.addObject("error", e);	
+			logger.info("NOT USER NOT EXIST");
+			return mav;
+		}
+	}
+
+	@RequestMapping(value = "/edited/save", method = RequestMethod.POST)
+	public String saveUpdatedEmployee(@ModelAttribute("employees") User serviceE) {
+		User emp = service.getEmployee(serviceE.getId());
+		System.out.println(serviceE.getRoles());
+		emp.setEmployeeid(serviceE.getEmployeeid());
+		emp.setEmployeeid(serviceE.getId());
+		System.out.print(serviceE.getId());
+		emp.setFirstname(serviceE.getFirstname());
+		emp.setLastname(serviceE.getLastname());
+		emp.setSalary(serviceE.getSalary());
+		emp.setSalaryhike(serviceE.getSalaryhike());
+		emp.setRoles(serviceE.getRoles());
+		service.updateEmployee(emp);
+		System.out.print(emp);
+		logger.info("SAVED USER EDITED DETAILS FOR ADMIN");
+		return "redirect:/adminPage";
+    }
+ 
+	@GetMapping("/deleteEmployee/{id}")
+	public String deleteEmployee(@PathVariable("id") Integer id) {
+		service.deleteEmployee(id);
 		logger.info("USER DELETED SUCCESSFULLY");
 		return "redirect:/adminPage";
 	}

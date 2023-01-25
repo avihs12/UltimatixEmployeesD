@@ -29,13 +29,13 @@
                 <div class="card-header">
                     <h5 class="text-center">Registration</h5>
                 </div>
-                <div class="card-body mt-5">
+                <div class="card-body mt-1">
                     <form th:action="@{/register/save}" id="addemployeeregiser" th:object="${employees}" method="post">
-                        <div style="width:800px;"  th:if="${param.v}">
+                        <div class= "d-none" style="width:450px;height: 50px; background-color: green;" id="registration">
                             <div class="alert alert-info" >You've successfully registered
                                 to our app!</div>
                         </div>
-                        <div class="d-flex">
+                        <div class="d-flex mt-3">
                             <div class="form-group mb-3">
                                 <label class="form-label">First Name</label>
                                 <input class="form-control" id="firstname" name="firstName" placeholder="Enter first name"
@@ -66,10 +66,7 @@
                             </div>
                             </div>
 
-                        <div class="form-group mb-3">
-                            <input type="hidden" th:field="*{userid}" class="form-control textinput" id="userid"
-                                placeholder="username">
-                        </div>
+                
                         <div class="d-flex">
                         <div class="form-group mb-3">
                             <label class="form-label">Employee ID</label>
@@ -91,11 +88,17 @@
                                 th:field="*{password}" type="password"/>
                                 <div id="error7"></div>
                         </div>
-
+                        <!-- <div class="form-group mb-3">
+                            <label class="form-label">enabled</label>
+                            <input class="form-control" id="firstname" name="enabled" placeholder="Enter enable"
+                                salaryhike th:field="*{enabled}" type="number" />
+                                <div id="error1"></div>
+                        </div> -->
                         <div class="form-group mb-3">
                             <button class="btn btn-primary" id="register" th:href="@{/register/save}" type="submit">Register</button>
                             <span>Already registered? <a href="/" th:href="@{/login}">Login
                                     here</a></span>
+                                    
                         </div>
                     </form>
                 </div>

@@ -12,7 +12,7 @@ public class User {
    @Id
    @Column(name = "user_id")
    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer userid;
+    private Integer id;
     @Column(nullable = false)
     private int employeeid;
     @Column(nullable = false)
@@ -28,7 +28,7 @@ public class User {
     @Column(nullable = false)
     private int salaryhike;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER )
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -36,12 +36,12 @@ public class User {
     )
     private Set<Role> roles = new HashSet<>();
 
-    public Integer getUserid() {
-        return userid;
+    public Integer getId() {
+        return id;
     }
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public int getEmployeeid() {
@@ -117,6 +117,6 @@ public class User {
     }
     @Override
 	public String toString() {
-		return "Employee [userid=" + userid + ", empid=" + employeeid + ", firstname=" + firstname + ", lastname=" + lastname + ", salary"+ salary + ", salaryhike" + salaryhike+", password" + password+ "]";
+		return "Employee [id=" + id + ", empid=" + employeeid + ", firstname=" + firstname + ", lastname=" + lastname + ", salary="+ salary + ", salaryhike=" + salaryhike+", password=" + password+ "]";
 	}
 }

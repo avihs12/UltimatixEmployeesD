@@ -29,70 +29,86 @@
         <div class="col-3" th:insert="leftcontainer ::  side-con"></div>
         <div class="col-5 mt-5 mb-0">
             <!-- <div class="card" th:unless="${error}"> -->
-                <div th:if="${error}">
-                    <span th:text="${error}"></span>
-                </div>
-            <div class="card" style=" margin-left:190px;width: 100%; height: 490px;" th:unless="${error}">
-                <form action="#" id="addemployee" th:action="@{/edited/save}" th:object="${employees}" method="post"
+            <div th:if="${error}">
+                <span th:text="${error}"></span>
+            </div>
+            <div class="card" style=" margin-left:190px;width: 100%; height: 530px;" th:unless="${error}">
+                <form action="#" id="addemployee" th:action="@{/useradded/save}" th:object="${employees}" method="post"
                     onsubmit="return validateForm()">
                     <h1 class="text-center">Create New Employee</h1>
                     <div class="row mb-4">
-                        <div class="col ms-3">
-                            <div class="form-group1" style="width: 216px; margin-left:11px;">
-                                <input type="hidden" th:field="*{userid}" class="form-control textinput" id="userid"
-                                    placeholder="userid">
+                        <div class="col ms-3 mt-3 d-flex">
+                            <div class="id ms-2" style="width: 100px;">
+                                <label for="exampleInputPassword1">id<span class="text-danger"> *</span></label>
+                                <input type="number" th:field="*{id}" class="form-control textinput" id="id"
+                                    placeholder="id" minlength="5" maxlength="6">
+                                <div id="error0"></div>
+                            </div>
+                            <div class="form-group1" style="width: 216px; margin-left:150px;">
+                                <label for="exampleInputPassword1">username<span class="text-danger"> *</span></label>
+                                <input type="text" th:field="*{username}" class="form-control textinput" id="username"
+                                    placeholder="username" minlength="5" maxlength="6">
+                                <div id="error1"></div>
+                            </div>
+                        </div>
+                        <div class="d-flex mt-4">
+                            <div class="form-group1" style="width: 200px; margin-left:25px;">
                                 <label for="exampleInputPassword1">firstname<span class="text-danger"> *</span></label>
                                 <input type="text" th:field="*{firstname}" class="form-control textinput" id="firstname"
                                     placeholder="firstname" minlength="5" maxlength="6">
                                 <div id="error1"></div>
                             </div>
-                        </div>
-                        <div class="col me-3">
-                            <div class="form-group2" style="margin-right: 13px;">
+                            <div class="form-group2 ms-5" style="margin-right: 13px;">
                                 <label for="exampleInputPassword1">lastname<span class="text-danger"> *</span></label>
                                 <input type="text" th:field="*{lastname}" class="form-control textinput" id="lastname"
                                     placeholder="last name" minlength="5" maxlength="6">
                                 <div id="error2"></div>
                             </div>
                         </div>
+                        <div class="d-flex mt-4">
+                            <div class="form-group3" style="width: 200px;">
+                                <label for="exampleInputPassword1">employee id<span class="text-danger">
+                                        *</span></label>
+                                <input type="number" th:field="*{employeeid}" class="form-control textinput"
+                                    id="employeeid" placeholder="employee id" minlength="6" maxlength="6">
+                                <div id="error3"></div>
+                            </div>
+                            <div class="form-group4 ms-5" style="width: 200px;">
+                                <label for="exampleInputPassword1">salary<span class="text-danger"> *</span></label>
+                                <input type="number" th:field="*{salary}" class="form-control textinput" id="salary"
+                                    placeholder="salary" minlength="5" maxlength="6">
+                                <div id="error5"></div>
+                            </div>
+                        </div>
+                        <div class="d-flex mt-4">
+                            <div class="form-group5" style="width: 200px;">
+                                <label for="exampleInputPassword1">salary hike<span class="text-danger">
+                                        *</span></label>
+                                <input type="number" th:field="*{salaryhike}" class="form-control textinput"
+                                    id="salaryhike" placeholder="salary hike" minlength="2">
+                                <div id="error6"></div>
+                            </div>
+                            <div class="form-group4 mt-3 d-flex" style="margin-left: 130px;">
+                                <label for="role"><span class="text-danger"> *</span></label>
+                                <select name="role" id="role">
+                                    <option>Select a role</option>
+                                    <option value="ADMIN">ADMIN</option>
+                                    <option value="USER">USER</option>
+                                    <option value="CREATOR">CREATOR</option>
+                                    <option value="EDITOR">EDITOR</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="password" style="width: auto; margin-left: 26px;margin-top: 20px;">
+                            <label for="exampleInputPassword1">password<span class="text-danger"> *</span></label>
+                            <input type="text" th:field="*{password}" class="form-control textinput" id="id"
+                                placeholder="id" minlength="5" maxlength="6">
+                            <div id="error1"></div>
+                        </div>
                     </div>
-                    <div class="form-group3">
-                        <label for="exampleInputPassword1">employee id<span class="text-danger"> *</span></label>
-                        <input type="number" th:field="*{employeeid}" class="form-control textinput" id="employeeid"
-                            placeholder="employee id" minlength="6" maxlength="6">
-                        <div id="error3"></div>
-                    </div>
-
-                    <div class="form-group4 mt-3">
-                        <label for="exampleInputPassword1">salary<span class="text-danger"> *</span></label>
-                        <input type="number" th:field="*{salary}" class="form-control textinput" id="salary"
-                            placeholder="salary" minlength="5" maxlength="6">
-                        <div id="error5"></div>
-                    </div>
-                    <br>
-                    <div class="form-group5">
-                        <label for="exampleInputPassword1">salary hike<span class="text-danger"> *</span></label>
-                        <input type="number" th:field="*{salaryhike}" class="form-control textinput" id="salaryhike"
-                            placeholder="salary hike" minlength="2">
-                        <div id="error6"></div>
-                    </div>
-                    <br>
-                    <div class="form-group4 mt-3">
-                        <label for="role"><span class="text-danger"> *</span></label>
-                        <select name="role" id="role">
-                            <option >Select a role</option>
-                            <option value="ADMIN">ADMIN</option>
-                            <option value="USER">USER</option>
-                            <option value="CREATOR">CREATOR</option>
-                            <option value="EDITOR">EDITOR</option>
-                        </select>
-                        <div id="error5"></div>
-                    </div>
-                    <br>
                     <div class="d-flex">
                         <div class="savebtn">
-                            <button  type="submit"
-                                class="btn btn-primary mb-2" id="savebutton"
+                            <button type="submit" class="btn btn-primary mb-2" id="savebutton"
                                 style="width:100%">SAVE</button>
                         </div>
                         <div class="cancelbutton"><button th:href="@{'/returnToHome'}" id="cancelbutton" type="submit"

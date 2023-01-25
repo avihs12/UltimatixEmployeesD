@@ -1,4 +1,4 @@
-var userid = document.getElementById("userid");
+var id = document.getElementById("id");
 var firstname = document.getElementById("firstname");
 var lastname = document.getElementById("lastname");
 var employeeid = document.getElementById("employeeid");
@@ -7,6 +7,7 @@ var salary = document.getElementById("salary");
 var salaryhike = document.getElementById("salaryhike");
 var username = document.getElementById("username");
 
+var error0 = document.getElementById("error0");
 var error1 = document.getElementById("error1");
 var error2 = document.getElementById("error2");
 var error3 = document.getElementById("error3");
@@ -22,6 +23,13 @@ var searchbarReset = document.getElementById("seachbarreset");
 function myfunction() {
   debugger;
   let error = false;
+  if (!id.value && id.value.trim() === "") {
+    debugger;
+    error0.innerHTML = "invalid firstname"
+    id.value.trim();
+    id.style.border = "2px solid red";
+    error = true
+  }
   if (!firstname.value && firstname.value.trim() === "") {
     debugger;
     error1.innerHTML = "invalid firstname"
@@ -69,6 +77,13 @@ cancelbutton.addEventListener("click", function (e) {
   myfunction();
 });
 
+id.addEventListener("keyup", function (e) {
+  e.preventDefault();
+  if (id.value) {
+    id.value.trim();
+    id.style.border = "2px solid green";
+  }
+});
 
 firstname.addEventListener("keyup", function (e) {
   e.preventDefault();

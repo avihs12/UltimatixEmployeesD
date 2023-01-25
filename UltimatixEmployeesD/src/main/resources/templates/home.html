@@ -35,7 +35,7 @@
                                     th:src="@{/images/empaddpic.png}"></button></a></h3>
                 </div>
                 <div class="search mt-2">
-                    <form class="form-inline d-flex" th:action="@{/searchEmployee}" method="get"
+                    <form class="form-inline d-flex" th:action="@{/user/EmployeeSearch}" method="get"
                         style="margin-left: 552px; margin-top:15px" ;>
                         <input class="form-control  mr-sm-2" id="searchInput" type="text" name="keyword"
                             th:value="${keyword}" placeholder="Search" size="20">
