@@ -1,5 +1,6 @@
 package com.example.UltimatixEmployeesD.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,11 +10,23 @@ import com.example.UltimatixEmployeesD.entity.User;
 import com.example.UltimatixEmployeesD.repository.UserRepository;
 import com.example.UltimatixEmployeesD.service.exceptions.NoSuchCustomerExistsException;
 
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 @Service
-public class EmployeeService {
+public class EmployeeService implements UserDetailsService{
 	@Autowired
 	private UserRepository users;
-
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		User user = users.getUserByUsername(username);
+		if (user == null) {
+			throw new UsernameNotFoundException("User not found with username: " + username);
+		}
+		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
+				new ArrayList<>());
+	}
 	public List<User> listAllEmployees() {
 		Pageable paging = PageRequest.of(0, 6);
 		return (List<User>) users.findAll(paging).toList();
@@ -48,6 +61,10 @@ public class EmployeeService {
 	public List<User> employeesPagination(int page, int size) {
 		Pageable paging = PageRequest.of(page, size);
 		return users.findAll(paging).toList();
+	}
+
+	public User getEmployeeByUsername(String username) {
+		return users.getUserByUsername(username);
 	}
 
 	// public void cancel(UEmployeeE emp){

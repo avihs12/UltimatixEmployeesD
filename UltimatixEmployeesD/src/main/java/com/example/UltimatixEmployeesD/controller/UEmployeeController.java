@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,6 +18,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.example.UltimatixEmployeesD.entity.User;
 import com.example.UltimatixEmployeesD.service.EmployeeService;
+// import com.example.UltimatixEmployeesD.JwtTokenUtils;
+
+// import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.slf4j.Logger;
 
@@ -23,6 +28,10 @@ import org.slf4j.Logger;
 public class UEmployeeController {
 	@Autowired
 	private EmployeeService service;
+	// @Autowired
+	// private JwtTokenUtils jwtTokenUtil;
+	//  @Autowired
+    // private AuthenticationManager authenticationManager;
 
 	Logger logger = LoggerFactory.getLogger(UEmployeeController.class);
 	public String currentUser()
@@ -43,7 +52,6 @@ public class UEmployeeController {
 		logger.info("LOGGGED IN----- CUSTOMLOGIN Page-  Accessed");
         return "login";
     }
-
 
 	
 	@GetMapping("/register")
@@ -183,5 +191,24 @@ public class UEmployeeController {
 		model.addAttribute("page", page);
 		return "adminPage";
 	}
+
+    @PostMapping("/authenticate")
+    public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+        if (authentication.isAuthenticated()) {
+            return jwtService.generateToken(authRequest.getUsername());
+        } else {
+            throw new UsernameNotFoundException("invalid user request !");
+        }
+
+
+    }
+
+	@PostMapping("/authenticate")
+    public String authenticateAndGetToken(@RequestBody MyUserDetails authRequest) {
+    Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+	final String token = jwtTokenUtil.generateToken(authRequest);
+		return ResponseEntity.ok(new JwtResponse(token));
+	 }
 
 }

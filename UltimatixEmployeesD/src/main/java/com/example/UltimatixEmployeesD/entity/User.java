@@ -17,7 +17,6 @@ public class User {
     private int employeeid;
     @Column(nullable = false)
     private String username;
-    private boolean enabled;
     private String password;
     @Column(nullable = false)
     private String firstname;
@@ -27,6 +26,11 @@ public class User {
     private int salary;
     @Column(nullable = false)
     private int salaryhike;
+    @Column(nullable = false)
+    private boolean enabled;
+    @Column(nullable = false)
+    private boolean isAccountNonExpired;
+
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER )
     @JoinTable(
@@ -35,6 +39,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles = new HashSet<>();
+   
 
     public Integer getId() {
         return id;
@@ -60,13 +65,6 @@ public class User {
         this.username = username;
     }
 
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
 
     public String getPassword() {
         return password;
@@ -115,8 +113,44 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
     @Override
 	public String toString() {
-		return "Employee [id=" + id + ", empid=" + employeeid + ", firstname=" + firstname + ", lastname=" + lastname + ", salary="+ salary + ", salaryhike=" + salaryhike+", password=" + password+ "]";
+		return "Employee [id=" + id + ", empid=" + employeeid + ", firstname=" + firstname + ", lastname=" + lastname + ", salary="+ salary + ", salaryhike=" + salaryhike+", password=" + password+ ", roles=" + roles+"]";
 	}
+
+    public Object map(Object object) {
+        return null;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setIsEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public void setIsAccountNonExpired(boolean isAccountNonExpired) {
+        this.isAccountNonExpired = isAccountNonExpired;
+    }
+
+    public void  setIsAccountNonLocked(boolean isAccountNonLocked){
+        this.isAccountNonExpired = isAccountNonLocked;
+    }
+    public void  setIsCredentialsNonExpired(boolean isCredentialsNonExpired){
+        this.isAccountNonExpired = isCredentialsNonExpired;
+    }
+
+    public boolean getIsAccountNonExpired() {
+        return isAccountNonExpired;
+    }
+
+    public boolean  getIsAccountNonLocked(){
+        return isAccountNonExpired;
+    }
+    public boolean  getIsCredentialsNonExpired(){
+        return isAccountNonExpired;
+    }
+    
 }

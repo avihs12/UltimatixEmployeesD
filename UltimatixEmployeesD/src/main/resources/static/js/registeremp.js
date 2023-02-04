@@ -5,6 +5,8 @@ var password = document.getElementById("password");
 var salary = document.getElementById("salary");
 var salaryhike = document.getElementById("salaryhike");
 var username = document.getElementById("username");
+var registration = document.getElementById("registration");
+
 
 var error1 = document.getElementById("error1");
 var error2 = document.getElementById("error2");
@@ -17,8 +19,10 @@ var error7 = document.getElementById("error7");
 var register = document.getElementById("register");
 
 
+
+
 debugger;
-function myfunction() {
+function validations() {
   debugger;
   let error = false;
   if (!firstname.value && firstname.value.trim() === "") {
@@ -72,11 +76,25 @@ function myfunction() {
 
 }
 
+function successPopUp(){
+  document.getElementById("register").onclick=()=>{
+    debugger
+    const style = document.getElementById("registration").style
+    if(style.display === "none"){
+      style.display = "block";
+    }
+    else{
+      style.display = "none";
+    }
+  }
+}
+
+
+
 register.addEventListener("click", function (e) {
   e.preventDefault();
-  debugger;
-
-  myfunction();
+  validations();
+  successPopUp();
 });
 
 
@@ -137,6 +155,5 @@ username.addEventListener("keyup", function (e) {
     username.style.border = "2px solid green";
   }
 });
-
 
 

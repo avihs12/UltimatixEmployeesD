@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.example.UltimatixEmployeesD.entity.Role;
 import com.example.UltimatixEmployeesD.entity.User;
 
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -14,8 +15,16 @@ import java.util.Set;
 
 
 public class MyUserDetails implements UserDetails {
-
     private User user;
+    // public MyUserDetails(User userInfo) {
+    //  List<User>   userInfo2 = (List<User>) userInfo
+    //     name=userInfo.getUsername();
+
+    //     password=userInfo.getPassword();
+    //     authorities= Arrays.stream(userInfo2)
+    //             .map(SimpleGrantedAuthority::new)
+    //             .collect(Collectors.toList());
+    // }
 
     public MyUserDetails(User user) {
         this.user = user;
