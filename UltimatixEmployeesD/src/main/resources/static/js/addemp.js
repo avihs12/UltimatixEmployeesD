@@ -14,11 +14,17 @@ var error3 = document.getElementById("error3");
 var error4 = document.getElementById("error4");
 var error5 = document.getElementById("error5");
 var error3 = document.getElementById("error6");
+var List = document.getElementById("myList");
+
 
 var savebutton = document.getElementById("savebutton");
 var cancelbutton = document.getElementById("cancelbutton");
 var searchbarSearch = document.getElementById("searchInput");
 var searchbarReset = document.getElementById("seachbarreset");
+
+function ChooseRole() {  
+  document.getElementById("role").value = List.options[List.selectedIndex].text;  
+}  
 
 function myfunction() {
   debugger;

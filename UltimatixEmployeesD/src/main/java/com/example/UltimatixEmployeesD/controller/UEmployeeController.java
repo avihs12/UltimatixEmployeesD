@@ -105,6 +105,7 @@ public class UEmployeeController {
 		return "Adminpage"; 
 	}
 
+	
 	@RequestMapping({"/showEmployees" ,"/user/EmployeeSearch"})
 	public String showEmployee(Model model, String keyword) {
 		if(keyword!=null){
@@ -154,7 +155,6 @@ public class UEmployeeController {
 	@RequestMapping(value = "/edited/save", method = RequestMethod.POST)
 	public String saveUpdatedEmployee(@ModelAttribute("employees") User serviceE) {
 		User emp = service.getEmployee(serviceE.getId());
-		System.out.println(serviceE.getRoles());
 		emp.setEmployeeid(serviceE.getEmployeeid());
 		emp.setEmployeeid(serviceE.getId());
 		System.out.print(serviceE.getId());
@@ -162,7 +162,6 @@ public class UEmployeeController {
 		emp.setLastname(serviceE.getLastname());
 		emp.setSalary(serviceE.getSalary());
 		emp.setSalaryhike(serviceE.getSalaryhike());
-		emp.setRoles(serviceE.getRoles());
 		service.updateEmployee(emp);
 		System.out.print(emp);
 		logger.info("SAVED USER EDITED DETAILS FOR ADMIN");
@@ -191,24 +190,4 @@ public class UEmployeeController {
 		model.addAttribute("page", page);
 		return "adminPage";
 	}
-
-    @PostMapping("/authenticate")
-    public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
-        if (authentication.isAuthenticated()) {
-            return jwtService.generateToken(authRequest.getUsername());
-        } else {
-            throw new UsernameNotFoundException("invalid user request !");
-        }
-
-
-    }
-
-	@PostMapping("/authenticate")
-    public String authenticateAndGetToken(@RequestBody MyUserDetails authRequest) {
-    Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
-	final String token = jwtTokenUtil.generateToken(authRequest);
-		return ResponseEntity.ok(new JwtResponse(token));
-	 }
-
 }

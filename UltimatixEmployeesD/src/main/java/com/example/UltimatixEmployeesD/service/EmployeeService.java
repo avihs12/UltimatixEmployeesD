@@ -10,23 +10,12 @@ import com.example.UltimatixEmployeesD.entity.User;
 import com.example.UltimatixEmployeesD.repository.UserRepository;
 import com.example.UltimatixEmployeesD.service.exceptions.NoSuchCustomerExistsException;
 
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 @Service
-public class EmployeeService implements UserDetailsService{
+public class EmployeeService{
 	@Autowired
 	private UserRepository users;
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = users.getUserByUsername(username);
-		if (user == null) {
-			throw new UsernameNotFoundException("User not found with username: " + username);
-		}
-		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
-				new ArrayList<>());
-	}
+	
 	public List<User> listAllEmployees() {
 		Pageable paging = PageRequest.of(0, 6);
 		return (List<User>) users.findAll(paging).toList();

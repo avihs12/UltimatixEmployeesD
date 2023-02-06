@@ -1,13 +1,20 @@
 package com.example.UltimatixEmployeesD.entity;
 
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User{
 
    @Id
    @Column(name = "user_id")
@@ -26,20 +33,7 @@ public class User {
     private int salary;
     @Column(nullable = false)
     private int salaryhike;
-    @Column(nullable = false)
-    private boolean enabled;
-    @Column(nullable = false)
-    private boolean isAccountNonExpired;
-
-
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER )
-    @JoinTable(
-            name = "users_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private Set<Role> roles = new HashSet<>();
-   
+    private String role = "USER";
 
     public Integer getId() {
         return id;
@@ -64,7 +58,6 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
-
 
     public String getPassword() {
         return password;
@@ -105,52 +98,16 @@ public class User {
     public void setSalaryhike(int salaryhike) {
         this.salaryhike = salaryhike;
     }
-
-    public Set<Role> getRoles() {
-        return roles;
+    public String getRole() {
+        return role;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     @Override
 	public String toString() {
-		return "Employee [id=" + id + ", empid=" + employeeid + ", firstname=" + firstname + ", lastname=" + lastname + ", salary="+ salary + ", salaryhike=" + salaryhike+", password=" + password+ ", roles=" + roles+"]";
+		return "Employee [id=" + id + ", empid=" + employeeid + ", firstname=" + firstname + ", lastname=" + lastname + ", salary="+ salary + ", salaryhike=" + salaryhike+", password=" + password+ ",role"+role+"]";
 	}
-
-    public Object map(Object object) {
-        return null;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setIsEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public void setIsAccountNonExpired(boolean isAccountNonExpired) {
-        this.isAccountNonExpired = isAccountNonExpired;
-    }
-
-    public void  setIsAccountNonLocked(boolean isAccountNonLocked){
-        this.isAccountNonExpired = isAccountNonLocked;
-    }
-    public void  setIsCredentialsNonExpired(boolean isCredentialsNonExpired){
-        this.isAccountNonExpired = isCredentialsNonExpired;
-    }
-
-    public boolean getIsAccountNonExpired() {
-        return isAccountNonExpired;
-    }
-
-    public boolean  getIsAccountNonLocked(){
-        return isAccountNonExpired;
-    }
-    public boolean  getIsCredentialsNonExpired(){
-        return isAccountNonExpired;
-    }
-    
 }
