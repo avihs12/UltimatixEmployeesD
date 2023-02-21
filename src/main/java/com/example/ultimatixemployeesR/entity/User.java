@@ -1,43 +1,29 @@
 package com.example.ultimatixemployeesR.entity;
 
 import jakarta.persistence.*;
-
+import java.io.Serializable;
 @Entity
-public class User{
+public class User implements Serializable{
    @Id
    @Column(name = "id")
    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(nullable = false)
-    private int employeeid;
+    private String lastname;
     @Column(nullable = false)
     private String username;
     @Column(nullable = false)
-    private String password;
-    @Column(nullable = false)
     private String firstname;
     @Column(nullable = false)
-    private String lastname;
-    @Column(nullable = false)
-    private int salary;
-    @Column(nullable = false)
-    private int salaryhike;
+    private String password;
     private String role = "USER";
-
+    
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public int getEmployeeid() {
-        return employeeid;
-    }
-
-    public void setEmployeeid(int employeeid) {
-        this.employeeid = employeeid;
     }
 
     public String getUsername() {
@@ -72,21 +58,6 @@ public class User{
         this.lastname = lastname;
     }
 
-    public int getSalary() {
-        return salary;
-    }
-
-    public void setSalary(int salary) {
-        this.salary = salary;
-    }
-
-    public int getSalaryhike() {
-        return salaryhike;
-    }
-
-    public void setSalaryhike(int salaryhike) {
-        this.salaryhike = salaryhike;
-    }
     public String getRole() {
         return role;
     }
@@ -97,8 +68,10 @@ public class User{
 
     @Override
 	public String toString() {
-		return "Employee [id=" + id + ", empid=" + employeeid + ", firstname=" + firstname + 
-        ",lastname=" + lastname + ", salary="+ 
-        salary + ", salaryhike=" + salaryhike+", password=" + password+ ",role"+role+"]";
+		return "Employee [id=" + id  +"username=" + username + "firstname=" + firstname +"lastname=" + lastname +", password=" + password+ ",role"+ role +"]";
 	}
 }
+
+// firstname=" + firstname + 
+// ",lastname=" + lastname + ", salary="+ 
+// salary + ", salaryhike=" + salaryhike+",

@@ -16,6 +16,7 @@ import com.example.ultimatixemployeesR.repository.EmployeeRepository;
 
 @Component
 public class UserDetailsServiceImpl implements UserDetailsService {
+    
     @Autowired
     private EmployeeRepository userRepository;
 

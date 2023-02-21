@@ -19,15 +19,17 @@ public class Employeeservice{
 	@Autowired
 	private EmployeeRepository users;
 	
+	public List<User> getEmployee(){
+		return users.findAll();
+	}
+
 	public List<User> listAllEmployees() {
 		Pageable paging = PageRequest.of(0, 6);
 		return (List<User>) users.findAll(paging).toList();
 	}
 
-	public String saveEmployee(User emp) {
-		users.save(emp);
-        return "User added Successfully with Id: "+ emp.getId();
-
+	public User saveEmployee(User emp) {
+		return users.save(emp);
     }
     public String encodePassword(String a) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -42,15 +44,14 @@ public class Employeeservice{
 	public void cancel(User emp) {
 		users.findAll();
 	}
-
+	
 	public User getEmployee(Integer id) {
 		return users.findById(id).orElseThrow(
 				() -> new NoSuchCustomerExistsException("NO CUSTOMER PRESENT WITH ID = " + id));
 	}
 
-	public String deleteEmployee(Integer id) {
+	public void deleteEmployee(Integer id) {
 		users.deleteById(id);
-		return "deleted";
 	}
 
 	// public List<User> searchEmployee(String firstname) {
@@ -65,5 +66,6 @@ public class Employeeservice{
 	public User getEmployeeByUsername(String username) {
 		return users.getUserByUsername(username);
 	}
+
 
 }
